@@ -14,14 +14,19 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ListView
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/budget_map"
-        android:text="budget map"
-        android:textStyle="bold"
-        android:textSize="40sp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:id="@+id/restList"/>
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:id="@+id/budget_map"-->
+        <!--android:text="budget map"-->
+        <!--android:textStyle="bold"-->
+        <!--android:textSize="40sp"-->
+        <!--android:layout_weight="1"/>-->
 
 
 
