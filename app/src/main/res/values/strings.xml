@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Foodget</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="searchButton">Search</string>
+    <string name="budget">What\'s your budget?</string>
+    <string name="textBudgetHint">Enter your budget</string>
+    <string name="exitApp">Exit</string>
+    <string name="radiusChange">Radius</string>
+    <string name="anotherItem">another Item</string>
+
+</resources>

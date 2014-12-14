@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".BudgetPage" >
+    <item android:id="@+id/radiusChange"
+        android:title="@string/radiusChange"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/anotherItem"
+        android:title="@string/anotherItem"
+        android:showAsAction="never"
+        android:orderInCategory="100"/>
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+    <item android:id="@+id/exitApp"
+        android:title="@string/exitApp"
+        android:orderInCategory="100"
+        android:showAsAction="never"/>
+</menu>
