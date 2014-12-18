@@ -3,6 +3,7 @@ package com.chamas.luis.foodget;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.location.LocationListener;
@@ -29,8 +30,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class mapDisplay extends FragmentActivity implements LocationListener{
     private GoogleMap mMap;
-    private double latitude;
-    private double longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +40,6 @@ public class mapDisplay extends FragmentActivity implements LocationListener{
         Intent activityThatCalled = getIntent();
 
         String userBudget = activityThatCalled.getExtras().getString("budget");
-
-        //Added to get current location
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (android.location.LocationListener) this);
-
 
 
         //map part
@@ -75,6 +69,7 @@ public class mapDisplay extends FragmentActivity implements LocationListener{
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView))
                     .getMap();
+
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
                 setUpMap();
@@ -83,8 +78,16 @@ public class mapDisplay extends FragmentActivity implements LocationListener{
     }
 
     private void setUpMap() {
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        String provider = locationManager.getBestProvider(criteria, true);
+        Location location = locationManager.getLastKnownLocation(provider);
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+
         CameraUpdate center= CameraUpdateFactory.newLatLng(new LatLng(latitude, longitude));
         CameraUpdate zoom= CameraUpdateFactory.zoomTo(15);
+        mMap.setMyLocationEnabled(true);
 
         mMap.moveCamera(center);
         mMap.animateCamera(zoom);
@@ -102,10 +105,7 @@ public class mapDisplay extends FragmentActivity implements LocationListener{
     //OnProviderDisabled
     @Override
     public void onLocationChanged(Location location) {
-        latitude = (double) (location.getLatitude());
-        longitude = (double) (location.getLongitude());
 
-        Log.i("Geo_Location", "Latitude: " + latitude + ", Longitude: " + longitude);
     }
 
     @Override
