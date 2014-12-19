@@ -25,7 +25,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
+import com.parse.Parse;
+import com.parse.ParseObject;
 
 
 public class mapDisplay extends FragmentActivity implements LocationListener{
@@ -41,6 +42,12 @@ public class mapDisplay extends FragmentActivity implements LocationListener{
 
         String userBudget = activityThatCalled.getExtras().getString("budget");
 
+        // Enable Local Datastore.
+        Parse.enableLocalDatastore(this);
+
+        Parse.initialize(this, "37fmnVXPfeDxVktJ3jo6HhDT6uE6fz9EKXMXY7By", "2qeEUesyWBHUREh1FLqxwvUyL7hFUdndorxhCBVc");
+
+        ParseObject restaurant = new ParseObject("restaurant");
 
         //map part
         setUpMapIfNeeded();

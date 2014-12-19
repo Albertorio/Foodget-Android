@@ -28,15 +28,8 @@ public class BudgetPage extends Activity {
         budget = (EditText)findViewById(R.id.editText);
         searchButton = (Button)findViewById(R.id.SearchButton);
 
-        // Enable Local Datastore.
-        Parse.enableLocalDatastore(this);
 
-        Parse.initialize(this, "37fmnVXPfeDxVktJ3jo6HhDT6uE6fz9EKXMXY7By", "2qeEUesyWBHUREh1FLqxwvUyL7hFUdndorxhCBVc");
 
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.get("resName");
-        testObject.saveInBackground();
 
     }
 
