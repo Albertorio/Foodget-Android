@@ -43,11 +43,10 @@ public class mapDisplay extends FragmentActivity implements LocationListener{
         String userBudget = activityThatCalled.getExtras().getString("budget");
 
         // Enable Local Datastore.
-        Parse.enableLocalDatastore(this);
+//        Parse.enableLocalDatastore(this);
+//
+//        Parse.initialize(this, "37fmnVXPfeDxVktJ3jo6HhDT6uE6fz9EKXMXY7By", "2qeEUesyWBHUREh1FLqxwvUyL7hFUdndorxhCBVc");
 
-        Parse.initialize(this, "37fmnVXPfeDxVktJ3jo6HhDT6uE6fz9EKXMXY7By", "2qeEUesyWBHUREh1FLqxwvUyL7hFUdndorxhCBVc");
-
-        ParseObject restaurant = new ParseObject("restaurant");
 
         //map part
         setUpMapIfNeeded();

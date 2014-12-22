@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,13 +13,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.text.ParseException;
+import java.util.List;
 
 
 public class BudgetPage extends Activity {
     private EditText budget;
     private Button searchButton;
+    private TextView testParse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +34,31 @@ public class BudgetPage extends Activity {
 
         budget = (EditText)findViewById(R.id.editText);
         searchButton = (Button)findViewById(R.id.SearchButton);
+        testParse = (TextView)findViewById(R.id.textView2);
 
+        // Enable Local Datastore.
+        Parse.enableLocalDatastore(this);
 
+        Parse.initialize(this, "37fmnVXPfeDxVktJ3jo6HhDT6uE6fz9EKXMXY7By", "2qeEUesyWBHUREh1FLqxwvUyL7hFUdndorxhCBVc");
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("restaurant");
+        query.whereEqualTo("objectId", "rBWu1SU5gB");
+      //  query.setLimit(1);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> resList, com.parse.ParseException e) {
+                if (e == null) {
+                    Log.d("resName", "Retrieved " + resList.size() + " restaurant");
+                    //testParse.setText(resList.toString());
+                    ParseObject rest = resList.get(0);
+                    String realRestName = rest.getString("resName");
+                    testParse.setText(realRestName);
+
+                } else {
+                    Log.d("score", "Error: " + e.getMessage());
+                }
+            }
+        });
 
 
     }
