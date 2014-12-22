@@ -38,9 +38,12 @@ public class mapDisplay extends FragmentActivity implements LocationListener{
 
         setContentView(R.layout.map_page);
 
-        Intent activityThatCalled = getIntent();
+       // Intent activityThatCalled = getIntent();
+        Bundle b = this.getIntent().getExtras();
+        String[] restaurants = b.getStringArray("rest");
+        String[] restaurants2 = {"hello", restaurants[0]};
 
-        String userBudget = activityThatCalled.getExtras().getString("budget");
+       // String userBudget = activityThatCalled.getExtras().getString("restaurants");
 
         // Enable Local Datastore.
 //        Parse.enableLocalDatastore(this);
@@ -52,9 +55,9 @@ public class mapDisplay extends FragmentActivity implements LocationListener{
         setUpMapIfNeeded();
 
         //List part
-        String[] testRest = {"monkeys", "labecket", "something", "something else", userBudget};
+       // String[] testRest = {userBudget};
 
-        ListAdapter theAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,testRest);
+        ListAdapter theAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,restaurants);
 
         ListView restView = (ListView)findViewById(R.id.restList);
 

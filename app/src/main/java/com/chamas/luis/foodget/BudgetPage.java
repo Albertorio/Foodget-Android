@@ -26,6 +26,7 @@ public class BudgetPage extends Activity {
     private EditText budget;
     private Button searchButton;
     private TextView testParse;
+    private   String[] arrayofrest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,24 +43,30 @@ public class BudgetPage extends Activity {
         Parse.initialize(this, "37fmnVXPfeDxVktJ3jo6HhDT6uE6fz9EKXMXY7By", "2qeEUesyWBHUREh1FLqxwvUyL7hFUdndorxhCBVc");
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("restaurant");
-        query.whereEqualTo("objectId", "rBWu1SU5gB");
-      //  query.setLimit(1);
+        query.whereNotEqualTo("resName", "");
+        //  query.setLimit(1);
         query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
             public void done(List<ParseObject> resList, com.parse.ParseException e) {
                 if (e == null) {
                     Log.d("resName", "Retrieved " + resList.size() + " restaurant");
                     //testParse.setText(resList.toString());
-                    ParseObject rest = resList.get(0);
-                    String realRestName = rest.getString("resName");
-                    testParse.setText(realRestName);
+                    int size = resList.size();
+                    arrayofrest = new String[size];
+                    for(int i=0;i<size;i++){
+                        ParseObject rest = resList.get(i);
+                        arrayofrest[i] = rest.getString("resName");
+
+                    }
+                    //ParseObject rest = resList.get(0);
+
+                    //String realRestName = rest.getString("resName");
+                    testParse.setText(arrayofrest[1]);
 
                 } else {
                     Log.d("score", "Error: " + e.getMessage());
                 }
             }
         });
-
 
     }
 
@@ -90,14 +97,14 @@ public class BudgetPage extends Activity {
 
     public void searchButtonClicked(View view) {
 
-          Intent getMapIntent = new Intent(this, mapDisplay.class);
+        Intent getMapIntent = new Intent(this, mapDisplay.class);
+        Bundle b = new Bundle();
+        b.putStringArray("rest", arrayofrest);
 
-          final int result = 1;
-        String getBudget;
-        getBudget = String.valueOf(budget.getText());
+        final int result = 1;
 
+        getMapIntent.putExtras(b);
 
-        getMapIntent.putExtra("budget", getBudget);
 
         startActivity(getMapIntent);
 
