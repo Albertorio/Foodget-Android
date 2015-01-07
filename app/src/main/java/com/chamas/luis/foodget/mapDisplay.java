@@ -41,7 +41,7 @@ public class mapDisplay extends FragmentActivity implements LocationListener{
        // Intent activityThatCalled = getIntent();
         Bundle b = this.getIntent().getExtras();
         String[] restaurants = b.getStringArray("rest");
-        String[] restaurants2 = {"hello", restaurants[0]};
+      //  String[] restaurants2 = {"hello", restaurants[0]};
 
        // String userBudget = activityThatCalled.getExtras().getString("restaurants");
 

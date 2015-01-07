@@ -25,7 +25,6 @@ import java.util.List;
 public class BudgetPage extends Activity {
     private EditText budget;
     private Button searchButton;
-    private TextView testParse;
     private   String[] arrayofrest;
 
     @Override
@@ -35,7 +34,6 @@ public class BudgetPage extends Activity {
 
         budget = (EditText)findViewById(R.id.editText);
         searchButton = (Button)findViewById(R.id.SearchButton);
-        testParse = (TextView)findViewById(R.id.textView2);
 
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
@@ -60,7 +58,7 @@ public class BudgetPage extends Activity {
                     //ParseObject rest = resList.get(0);
 
                     //String realRestName = rest.getString("resName");
-                    testParse.setText(arrayofrest[1]);
+
 
                 } else {
                     Log.d("score", "Error: " + e.getMessage());
