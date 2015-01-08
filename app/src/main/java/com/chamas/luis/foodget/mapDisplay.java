@@ -68,6 +68,10 @@ public class mapDisplay extends FragmentActivity implements LocationListener{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String restPicked = "You selected " + String.valueOf(parent.getItemAtPosition(position));
                 Toast.makeText(mapDisplay.this, restPicked, Toast.LENGTH_SHORT).show();
+                Intent getResName = new Intent(mapDisplay.this, resPage.class);
+                final int result = 1;
+                getResName.putExtra("resName", restPicked);
+                startActivity(getResName);
             }
         });
     }
