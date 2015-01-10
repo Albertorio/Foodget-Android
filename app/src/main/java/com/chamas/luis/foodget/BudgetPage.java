@@ -18,14 +18,20 @@ import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import org.json.JSONArray;
+
+import java.lang.reflect.Array;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.List;
 
 
 public class BudgetPage extends Activity {
     private EditText budget;
     private Button searchButton;
-    private   String[] arrayofrest;
+    private String[] arrayofrest;
+    private String[] arrayofgeopoints;
+    private JSONArray arrayofmenus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +56,18 @@ public class BudgetPage extends Activity {
                     //testParse.setText(resList.toString());
                     int size = resList.size();
                     arrayofrest = new String[size];
+                    arrayofgeopoints = new String[size];
+                    arrayofmenus = new JSONArray();
                     for(int i=0;i<size;i++){
                         ParseObject rest = resList.get(i);
                         arrayofrest[i] = rest.getString("resName");
-
+                        arrayofgeopoints[i] = String.valueOf(rest.getParseGeoPoint("coordinates"));
+                        arrayofmenus.put(rest.getJSONArray("Menu"));
                     }
+                    Log.d("rest", arrayofrest[0]);
+                    Log.d("resgeopoint", arrayofgeopoints[0]);
+                    Log.d("menu", String.valueOf(arrayofmenus));
+
                     //ParseObject rest = resList.get(0);
 
                     //String realRestName = rest.getString("resName");
