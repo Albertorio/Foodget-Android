@@ -19,6 +19,8 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Array;
 import java.text.ParseException;
@@ -32,6 +34,7 @@ public class BudgetPage extends Activity {
     private String[] arrayofrest;
     private String[] arrayofgeopoints;
     private JSONArray arrayofmenus;
+    private String menus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,43 +44,21 @@ public class BudgetPage extends Activity {
         budget = (EditText)findViewById(R.id.editText);
         searchButton = (Button)findViewById(R.id.SearchButton);
 
-        // Enable Local Datastore.
-        Parse.enableLocalDatastore(this);
-
-        Parse.initialize(this, "37fmnVXPfeDxVktJ3jo6HhDT6uE6fz9EKXMXY7By", "2qeEUesyWBHUREh1FLqxwvUyL7hFUdndorxhCBVc");
-
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("restaurant");
-        query.whereNotEqualTo("resName", "");
-        //  query.setLimit(1);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> resList, com.parse.ParseException e) {
-                if (e == null) {
-                    Log.d("resName", "Retrieved " + resList.size() + " restaurant");
-                    //testParse.setText(resList.toString());
-                    int size = resList.size();
-                    arrayofrest = new String[size];
-                    arrayofgeopoints = new String[size];
-                    arrayofmenus = new JSONArray();
-                    for(int i=0;i<size;i++){
-                        ParseObject rest = resList.get(i);
-                        arrayofrest[i] = rest.getString("resName");
-                        arrayofgeopoints[i] = String.valueOf(rest.getParseGeoPoint("coordinates"));
-                        arrayofmenus.put(rest.getJSONArray("Menu"));
-                    }
-                    Log.d("rest", arrayofrest[0]);
-                    Log.d("resgeopoint", arrayofgeopoints[0]);
-                    Log.d("menu", String.valueOf(arrayofmenus));
-
-                    //ParseObject rest = resList.get(0);
-
-                    //String realRestName = rest.getString("resName");
-
-
-                } else {
-                    Log.d("score", "Error: " + e.getMessage());
-                }
-            }
-        });
+        Bundle b = this.getIntent().getExtras();
+        arrayofrest = b.getStringArray("restaurants");
+        arrayofgeopoints = b.getStringArray("coordinates");
+        menus = b.getString("menu");
+        Log.d("rest 1 name", arrayofrest[0]);
+        Log.d("geo 1 ", arrayofgeopoints[0]);
+        Log.d("menus", menus);
+        menus = menus.replace("[", "");
+        //menus.replace("]", "");
+        Log.d("menus after", menus);
+        for(String retval : menus.split("]")){
+          Log.d("retval", retval);
+        }
+        //String [] spl = menus.split("]",5);
+        //Log.d("split", Arrays.toString(spl));
 
     }
 
