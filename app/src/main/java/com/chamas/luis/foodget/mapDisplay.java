@@ -28,6 +28,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
+import java.util.Arrays;
+
 
 public class mapDisplay extends FragmentActivity implements LocationListener{
     private GoogleMap mMap;
@@ -40,7 +42,9 @@ public class mapDisplay extends FragmentActivity implements LocationListener{
 
        // Intent activityThatCalled = getIntent();
         Bundle b = this.getIntent().getExtras();
-        String[] restaurants = b.getStringArray("rest");
+        final String[] restaurants = b.getStringArray("rest");
+        final String[] menus = b.getStringArray("menu");
+        final String[] geoPoints = b.getStringArray("geo");
       //  String[] restaurants2 = {"hello", restaurants[0]};
 
        // String userBudget = activityThatCalled.getExtras().getString("restaurants");
@@ -66,11 +70,14 @@ public class mapDisplay extends FragmentActivity implements LocationListener{
         restView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String restPicked = "You selected " + String.valueOf(parent.getItemAtPosition(position));
+                String restPicked = String.valueOf(parent.getItemAtPosition(position));
+                int e = Arrays.asList(restaurants).indexOf(restPicked);
+                Log.d("e", String.valueOf(e));
                 Toast.makeText(mapDisplay.this, restPicked, Toast.LENGTH_SHORT).show();
                 Intent getResName = new Intent(mapDisplay.this, resPage.class);
                 final int result = 1;
                 getResName.putExtra("resName", restPicked);
+                getResName.putExtra("resMenu", menus[e]);
                 startActivity(getResName);
             }
         });

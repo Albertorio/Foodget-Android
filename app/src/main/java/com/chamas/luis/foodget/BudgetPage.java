@@ -35,6 +35,7 @@ public class BudgetPage extends Activity {
     private String[] arrayofgeopoints;
     private JSONArray arrayofmenus;
     private String menus;
+    private String[] retval;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +52,38 @@ public class BudgetPage extends Activity {
         Log.d("rest 1 name", arrayofrest[0]);
         Log.d("geo 1 ", arrayofgeopoints[0]);
         Log.d("menus", menus);
-        menus = menus.replace("[", "");
-        //menus.replace("]", "");
-        Log.d("menus after", menus);
-        for(String retval : menus.split("]")){
-          Log.d("retval", retval);
+        for(int i=0;i<arrayofgeopoints.length;i++){
+            arrayofgeopoints[i] = arrayofgeopoints[i].replace("ParseGeoPoint[", "");
+            arrayofgeopoints[i] = arrayofgeopoints[i].replace("]", "");
         }
+        Log.d("geo 1 after ", arrayofgeopoints[0]);
+        menus = menus.replace("[", "");
+        Log.d("menus after", menus);
+        retval = menus.split("]");
+        Log.d("new retval",Arrays.toString(retval));
+        for(int i=1;i<retval.length;i++){
+            retval[i] = retval[i].replaceFirst(",", "");
+        }
+        for(int i=0;i<retval.length;i++){
+            Log.d("qwerty", retval[i]);
+        }
+//        for(int i =0; i< retval.length;i++){
+//            retval[i] = retval[i].replace(",", "");
+//            retval[i] = retval[i].replaceAll("\\n", "");
+//
+//        }
+//        Log.d("new retval after",Arrays.toString(retval));
+//        Log.d("retval 0 after", retval[0]);
+//        Log.d("retval 1 after", retval[1]);
+//        Log.d("retval 2 after", retval[2]);
+//        Log.d("retval 3 after", retval[3]);
+//        Log.d("retval 4 after", retval[4]);
+
+//        for(String retval : menus.split("]")) {
+//            Log.d("retval", retval);
+//        }
+
+       // Log.d("retval alone", retval);
         //String [] spl = menus.split("]",5);
         //Log.d("split", Arrays.toString(spl));
 
@@ -92,6 +119,8 @@ public class BudgetPage extends Activity {
         Intent getMapIntent = new Intent(this, mapDisplay.class);
         Bundle b = new Bundle();
         b.putStringArray("rest", arrayofrest);
+        b.putStringArray("menu", retval);
+        b.putStringArray("geo", arrayofgeopoints);
 
         final int result = 1;
 
